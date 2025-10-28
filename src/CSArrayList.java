@@ -189,12 +189,44 @@ public class CSArrayList<E>
         return String.valueOf(Arrays.toString(theData));
     }
     public void clear(){
-
+        for (int i = 0; i < size; i++) {
+            theData[i] = null;
+        }
+        size = 0;
     }
     public boolean isEmpty(){
         return size == 0;
     }
 
+    public boolean remove(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (theData[i] == null) {
+                    return true;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (indexOf(o) == i) {
+                    theData[i] = null;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public void ensureCapacity(int minCapacity) {
+        int capacity = theData.length;
+        if (capacity < minCapacity) {
+            theData = Arrays.copyOf(theData, minCapacity);
+        }
+    }
+    public void trimToSize() {
+        int capacity = theData.length;
+        if (capacity > size) {
+            theData = Arrays.copyOf(theData, size);
+        }
+    }
 }
 
 
