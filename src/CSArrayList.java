@@ -68,6 +68,7 @@ public class CSArrayList<E>
         }
         theData[size] = anEntry;
         size++;
+        modCount++;
         return true;
     }
 
@@ -90,6 +91,7 @@ public class CSArrayList<E>
         // Insert the new item.
         theData[index] = anEntry;
         size++;
+        modCount++;
     }
     /**
      * Get a value in the array based on its index.
@@ -144,6 +146,7 @@ public class CSArrayList<E>
             theData[i - 1] = theData[i];
         }
         size--;
+        modCount++;
         return returnValue;
     }
 
@@ -186,13 +189,26 @@ public class CSArrayList<E>
 
     @Override
     public String toString(){
-        return String.valueOf(Arrays.toString(theData));
+        if (size == 0) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (int i = 0; i < size; i++) {
+            sb.append(theData[i]);
+            if (i < size - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append(']');
+        return sb.toString();
     }
     public void clear(){
         for (int i = 0; i < size; i++) {
             theData[i] = null;
         }
         size = 0;
+        modCount++;
     }
     public boolean isEmpty(){
         return size == 0;
